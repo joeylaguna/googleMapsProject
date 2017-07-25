@@ -1,25 +1,26 @@
 var map;
 var service;
 var infowindow;
-
-function initialize() {
+var pyrmont = new google.maps.LatLng(38.5718873,-121.4819011);
+function initializeMap() {
   console.log('here');
-  var pyrmont = new google.maps.LatLng(38.5718873,-121.4819011);
+  
 
   map = new google.maps.Map(document.getElementById('map'), {
       center: pyrmont,
       zoom: 15
   });
 
-  var request = {
-    location: pyrmont,
-    radius: '500',
-    query: 'restaurant'
-  };
+  // var request = {
+  //   location: pyrmont,
+  //   radius: '500',
+  //   query: 'restaurant'
+  // };
 
   service = new google.maps.places.PlacesService(map);
-  service.textSearch(request, callback);
+  // service.textSearch(request, callback);
 }
+
 
 function createMarker(place) {
 
@@ -39,4 +40,23 @@ function callback(results, status) {
   }
 }
 
-initialize();
+
+window.onload = () => {
+  initializeMap();
+
+  //Add event listener to input field
+  let searchForm = document.querySelector('.searchArea');
+  let searchField = document.querySelector('.searchField');
+  searchForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let query = searchField.value;
+    let queryObj = {};
+    queryObj['location'] = pyrmont;
+    queryObj['radius'] = '500',
+    queryObj['query'] = query;
+    service.textSearch(queryObj, callback);
+
+    //Reset search field
+    searchForm.reset();
+  });
+}
