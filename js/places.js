@@ -1,6 +1,5 @@
 var map;
 var service;
-var infowindow;
 var pyrmont = new google.maps.LatLng(38.5718873,-121.4819011);
 
 function initializeMap() {
@@ -8,7 +7,6 @@ function initializeMap() {
       center: pyrmont,
       zoom: 15
   });
-  infowindow = new google.maps.InfoWindow();
   service = new google.maps.places.PlacesService(map);
 }
 
@@ -19,10 +17,13 @@ function createMarker(place) {
     map: map
   });
 
-  // google.maps.event.addListener(marker, 'click', () => {
-  //   infowindow.setContent(place.name);
-  //   infowindow.open(map, this);
-  // });
+  let infowindow = new google.maps.InfoWindow({
+    content: place.name
+  });
+
+  marker.addListener('click', () => {
+    infowindow.open(map, marker);
+  });
 }
 
 const buildList = (place) => {
@@ -47,6 +48,7 @@ function callback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
       var place = results[i];
+      console.log(place);
       createMarker(place);
       buildList(place);
     }
