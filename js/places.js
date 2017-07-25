@@ -2,32 +2,44 @@ var map;
 var service;
 var infowindow;
 var pyrmont = new google.maps.LatLng(38.5718873,-121.4819011);
-function initializeMap() {
-  console.log('here');
-  
 
+function initializeMap() {
   map = new google.maps.Map(document.getElementById('map'), {
       center: pyrmont,
       zoom: 15
   });
-
-  // var request = {
-  //   location: pyrmont,
-  //   radius: '500',
-  //   query: 'restaurant'
-  // };
-
+  infowindow = new google.maps.InfoWindow();
   service = new google.maps.places.PlacesService(map);
-  // service.textSearch(request, callback);
 }
 
 
 function createMarker(place) {
+  let marker = new google.maps.Marker({
+    position: place.geometry.location,
+    map: map
+  });
 
-    new google.maps.Marker({
-        position: place.geometry.location,
-        map: map
-    });
+  // google.maps.event.addListener(marker, 'click', () => {
+  //   infowindow.setContent(place.name);
+  //   infowindow.open(map, this);
+  // });
+}
+
+const buildList = (place) => {
+  
+  let placeName = document.createElement('p');
+  let placeRating = document.createElement('p');
+  let placeAddress = document.createElement('p');
+
+  placeName.innerHTML = place.name;
+  placeRating.innerHTML = place.rating;
+  placeAddress.innerHTML = place.formatted_address;
+
+  let listing = document.createElement('div');
+  listing.appendChild(placeName);
+  listing.appendChild(placeAddress);
+  listing.appendChild(placeRating);
+  document.querySelector('.searchResults').appendChild(listing);
 }
 
 function callback(results, status) {
@@ -35,7 +47,8 @@ function callback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
       var place = results[i];
-      createMarker(results[i]);
+      createMarker(place);
+      buildList(place);
     }
   }
 }
