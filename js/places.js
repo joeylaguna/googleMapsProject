@@ -2,6 +2,7 @@ var map;
 var service;
 var pyrmont = new google.maps.LatLng(38.5718873,-121.4819011);
 var infoWindow = new google.maps.InfoWindow();
+var markers = [];
 
 function initializeMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -11,13 +12,11 @@ function initializeMap() {
   service = new google.maps.places.PlacesService(map);
 }
 
-
-function createMarker(place) {
+const addMarker = (place) => {
   let marker = new google.maps.Marker({
     position: place.geometry.location,
     map: map
   });
-
   marker.addListener('click', () => {
     infoWindow.setContent(place.name);
     infoWindow.open(map, marker);
@@ -32,7 +31,34 @@ function createMarker(place) {
   marker.addListener('mouseout', () => {
     let targetElement = document.querySelector(`[data='${place.id}']`);
     targetElement.classList.remove('activeHover');
-  })
+  });
+  markers.push(marker);
+}
+
+const setMapOnAll = (map) => {
+  for (let i = 0; i < markers.length; i++) {
+    markers[i].setMap(null);
+  }
+}
+
+const clearMarkers = () => {
+  setMapOnAll(map);
+}
+
+const deleteMarkers = () => {
+  clearMarkers();
+  markers = [];
+}
+
+function createMarker(place) {
+  addMarker(place);
+}
+
+const clearTable = () => {
+  let table = document.querySelector('.highlight tbody');
+  while(table.firstChild) {
+    table.removeChild(table.firstChild);
+  }
 }
 
 const buildList = (place) => {
@@ -87,6 +113,8 @@ function callback(results, status) {
 }
 
 const handleSearch = (searchField, searchForm) => {
+  deleteMarkers();
+  clearTable();
   let query = searchField.value;
   let queryObj = {};
   queryObj['location'] = pyrmont;
