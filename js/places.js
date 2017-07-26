@@ -25,13 +25,13 @@ function createMarker(place) {
 
   marker.addListener('mouseover', () => {
     let targetElement = document.querySelector(`[data='${place.id}']`);
-    targetElement.classList.add('active');
+    targetElement.classList.add('activeHover');
     targetElement.classList.add('fadeIn');
   });
 
   marker.addListener('mouseout', () => {
     let targetElement = document.querySelector(`[data='${place.id}']`);
-    targetElement.classList.remove('active');
+    targetElement.classList.remove('activeHover');
   })
 }
 
@@ -60,6 +60,8 @@ const buildList = (place) => {
   listing.appendChild(placeAddress);
   listing.appendChild(placeRating);
   listing.appendChild(placeOpen);
+
+  listing.setAttribute('data' , place.id);
 
   table.appendChild(listing);
 }
