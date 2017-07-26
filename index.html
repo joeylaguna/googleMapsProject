@@ -9,24 +9,69 @@
        * element that contains the map. */
       #map {
         height: 50%;
-        width: 50%;
+        width: 100%;
+        clear: both;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 10px !important;
+        width: 100% !important;
       }
-    </style>
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+<link rel="stylesheet" href="css/main.css">
   </head>
   <body>
-    <div id="map"></div>
-    <form class='searchArea'>
-      <input type='text' class='searchField' placeholder='Search for anything!'></input>
-    </form>
-    <div class='searchResults'>
+    <div class='container mapContainer'>
+      
+      <div class='row mapContainer'>
+        <div class='col m6 s12 mapContainer'>
+          <div id="map"></div>
+        </div>
+        <div class='col m6 s12'>
+        <form class='searchArea'>
+          
+          <input type='text' class='searchField' placeholder='Search for anything!'></input>
+        </form>
+        <div class='row'>
+          <div class='s12 m12 center'>
+            <div class="preloader-wrapper big active none loader center">
+            <div class="spinner-layer spinner-blue-only">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+                </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+          </div>
+          
+        </div>
+        
+        <div class='searchResults'>
+          <table class='highlight'>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Rating</th>
+                <th>Open?</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      </div>
     </div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuFkNoClbqOBAvuWRU7ouoFag2ccoZaqw&libraries=places"></script>
     <script src='js/places.js'></script>
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
   </body>
 </html>

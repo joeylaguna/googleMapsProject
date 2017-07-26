@@ -6,7 +6,7 @@ var infoWindow = new google.maps.InfoWindow();
 function initializeMap() {
   map = new google.maps.Map(document.getElementById('map'), {
       center: pyrmont,
-      zoom: 15
+      zoom: 12
   });
   service = new google.maps.places.PlacesService(map);
 }
@@ -25,42 +25,63 @@ function createMarker(place) {
 
   marker.addListener('mouseover', () => {
     let targetElement = document.querySelector(`[data='${place.id}']`);
-    targetElement.setAttribute('style', 'background: red;');
+    targetElement.classList.add('active');
+    targetElement.classList.add('fadeIn');
   });
 
   marker.addListener('mouseout', () => {
     let targetElement = document.querySelector(`[data='${place.id}']`);
-    targetElement.removeAttribute('style');
+    targetElement.classList.remove('active');
   })
 }
 
 const buildList = (place) => {
-  
-  let placeName = document.createElement('p');
-  let placeRating = document.createElement('p');
-  let placeAddress = document.createElement('p');
+  let table = document.querySelector('.highlight tbody');
+  let listing = document.createElement('tr');
+  let placeName = document.createElement('td');
+  let placeAddress = document.createElement('td');
+  let placeRating = document.createElement('td');
+  let placeOpen = document.createElement('td');
 
   placeName.innerHTML = place.name;
-  placeRating.innerHTML = place.rating;
   placeAddress.innerHTML = place.formatted_address;
+  placeRating.innerHTML = place.rating;
+  if (place.opening_hours) {
+    if (place.opening_hours.open_now) {
+      placeOpen.innerHTML = 'Open'
+    } else {
+      placeOpen.innerHTML = 'Closed'
+    }
+  } else {
+    placeOpen.innerHTML = 'N/A'
+  }
 
-  let listing = document.createElement('div');
-  listing.setAttribute('data', place.id)
   listing.appendChild(placeName);
   listing.appendChild(placeAddress);
   listing.appendChild(placeRating);
-  document.querySelector('.searchResults').appendChild(listing);
+  listing.appendChild(placeOpen);
+
+  table.appendChild(listing);
+}
+
+const buildUIList = () => {
+  let ul = document.createElement('ul');
+  ul.setAttribute('class', 'collection');
+  document.querySelector('.searchResults').appendChild(ul);
 }
 
 function callback(results, status) {
-  //console.log(results);
   if (status == google.maps.places.PlacesServiceStatus.OK) {
+    document.querySelector('.loader').classList.add('none');
+    console.log('here');
     for (var i = 0; i < results.length; i++) {
       var place = results[i];
       createMarker(place);
+      
       buildList(place);
     }
   }
+  document.querySelector('.loader').classList.add('none');
 }
 
 const handleSearch = (searchField, searchForm) => {
@@ -84,6 +105,7 @@ window.onload = () => {
   let searchField = document.querySelector('.searchField');
   searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    document.querySelector('.loader').classList.remove('none');
     handleSearch(searchField, searchForm);
   });
 }
