@@ -6,63 +6,67 @@
     <meta charset="utf-8">
     <style>
       /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
+      * element that contains the map. */
       #map {
-        height: 75%;
-        width: 100%;
-        clear: both;
+      height: 673px;
+      width: 100%;
+      clear: both;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
-        height: 100% !important;
-        margin: 0 !important;
-        padding: 10px !important;
-        width: 100% !important;
+      height: 100% !important;
+      margin: 0 !important;
+      padding: 10px !important;
+      width: 100% !important;
       }
-</style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
-<link rel="stylesheet" href="css/main.css">
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+    <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
     <div class='container mapContainer'>
       <div class='row mapContainer'>
         <div class='col m6 s12 mapContainer'>
-          <div id="map"></div>
+          <div class='mapContainer card-panel'>
+            <div id="map"></div>
+          </div>
         </div>
         <div class='col m6 s12'>
-        <form class='searchArea'>
-          <input type='text' class='searchField' placeholder='Search for anything!'></input>
-        </form>
-        <div class='row'>
-          <div class='s12 m12 center'>
-            <div class="preloader-wrapper big active none loader center">
-            <div class="spinner-layer spinner-blue-only">
-              <div class="circle-clipper left">
-                <div class="circle"></div>
-                </div><div class="gap-patch">
-                <div class="circle"></div>
-                </div><div class="circle-clipper right">
-                <div class="circle"></div>
+          <div class='card-panel'>
+            <form class='searchArea'>
+              <input type='text' class='searchField' placeholder='Search for anything!'></input>
+            </form>
+            <div class='s12 m12 center'>
+              <div class="preloader-wrapper big active none loader center">
+                <div class="spinner-layer spinner-blue-only">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="gap-patch">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+            <div class='searchResults none'>
+              <table class='highlight'>
+                <thead>
+                  <tr>
+                    <th class='sort'>Name</th>
+                    <th class='sort'>Location</th>
+                    <th class='sort'>Rating</th>
+                    <th>Open?</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-        <div class='searchResults none'>
-          <table class='highlight'>
-            <thead>
-              <tr>
-                <th class='sort'>Name</th>
-                <th class='sort'>Location</th>
-                <th class='sort'>Rating</th>
-                <th>Open?</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-        </div>
-      </div>
       </div>
     </div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuFkNoClbqOBAvuWRU7ouoFag2ccoZaqw&libraries=places"></script>
