@@ -3,6 +3,8 @@ var service;
 var pyrmont = new google.maps.LatLng(38.5718873,-121.4819011);
 var infoWindow = new google.maps.InfoWindow();
 var markers = [];
+var places = [];
+var ratingSorted = false;
 
 function initializeMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -33,6 +35,49 @@ const addMarker = (place) => {
     targetElement.classList.remove('activeHover');
   });
   markers.push(marker);
+  places.push(place);
+}
+
+const merge = (left, right) => {
+  let results = [];
+
+  while (left.length && right.length) {
+    if (ratingSorted) {
+      if (left[0].rating < right[0].rating) {
+        results.push(left.shift());
+      } else {
+        results.push(right.shift());
+      }  
+    } else {
+      if (left[0].rating > right[0].rating) {
+        results.push(left.shift());
+      } else {
+        results.push(right.shift());
+      }
+    }
+    
+  }
+
+  while (left.length) {
+    results.push(left.shift());
+  }
+
+  while (right.length) {
+    results.push(right.shift());
+  }
+  return results;
+}
+
+const mergeSort = (arr) => {
+  if (arr.length < 2) {
+    return arr;
+  }
+
+  let middle = parseInt(arr.length / 2);
+  let left = arr.slice(0, middle);
+  let right = arr.slice(middle, arr.length);
+
+  return merge(mergeSort(left), mergeSort(right));
 }
 
 const setMapOnAll = (map) => {
@@ -110,6 +155,7 @@ function callback(results, status) {
     }
   }
   document.querySelector('.loader').classList.add('none');
+  document.querySelector('.searchResults').classList.remove('none');
 }
 
 const handleSearch = (searchField, searchForm) => {
@@ -126,6 +172,16 @@ const handleSearch = (searchField, searchForm) => {
   searchForm.reset();
 }
 
+const sortByRating = () => {
+  places = mergeSort(places);
+  console.log(places);
+  clearTable();
+  for (let i = 0; i < places.length; i++) {
+    buildList(places[i]);
+  }
+  ratingSorted = !ratingSorted;
+}
+
 
 window.onload = () => {
   initializeMap();
@@ -138,4 +194,8 @@ window.onload = () => {
     document.querySelector('.loader').classList.remove('none');
     handleSearch(searchField, searchForm);
   });
+
+  //Add sorting to table headers
+  let headers = document.querySelectorAll('.sort');
+  headers[2].addEventListener('click', sortByRating);
 }
