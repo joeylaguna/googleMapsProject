@@ -93,6 +93,7 @@ const clearMarkers = () => {
 const deleteMarkers = () => {
   clearMarkers();
   markers = [];
+  places = [];
 }
 
 function createMarker(place) {
