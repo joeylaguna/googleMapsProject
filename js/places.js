@@ -19,7 +19,7 @@ function initializeMap() {
         lng: position.coords.longitude
       }
       //infoWindow.setPosition(pos);
-      infoWindow.open(map);
+      //infoWindow.open(map);
       map.setCenter(pos);
       console.log(map.center);
     });
@@ -137,6 +137,9 @@ const buildList = (place) => {
   placeName.innerHTML = place.name;
   placeAddress.innerHTML = place.formatted_address;
   placeRating.innerHTML = place.rating;
+
+  place.rating ? placeRating.innerHTML = place.rating : placeRating.innerHTML = 'N/A';
+
   if (place.opening_hours) {
     if (place.opening_hours.open_now) {
       placeOpen.innerHTML = 'Open'
@@ -177,6 +180,8 @@ function callback(results, status) {
 const handleSearch = (searchField, searchForm) => {
   deleteMarkers();
   clearTable();
+  document.querySelector('.tableHead').classList.remove('none');
+  document.querySelector('.searchResults').classList.add('none');
   let query = searchField.value;
   let queryObj = {};
   queryObj['location'] = map.center;
@@ -195,6 +200,8 @@ const sortByRating = () => {
   for (let i = 0; i < places.length; i++) {
     buildList(places[i]);
   }
+  document.querySelector('.tableHead').classList.remove('none');
+  document.querySelector('.searchResults').classList.remove('none');
   ratingSorted = !ratingSorted;
   console.log(document.querySelector('.rating'));
   toggleRatingIcon();

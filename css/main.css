@@ -7,6 +7,11 @@ body {
   width: 100%;
 }
 
+#map {
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  overflow: hidden;
+}
+
 .fadeIn {
   transition: background-color .25s ease;
 }
@@ -21,9 +26,13 @@ body {
 
 .searchResults {
   overflow-y: scroll;
-  height: 550px;
+  height: 559px;
 }
 
 .material-icons{
   display: inline !important;
+}
+
+.card-panel {
+  margin-top: 0;
 }
