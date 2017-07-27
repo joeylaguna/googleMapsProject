@@ -99,3 +99,11 @@ body {
   margin-left: 100px;
   margin-top: -23px;
 }
+
+/*  Media Queries */
+
+@media(max-width: 600px) {
+  .card-panel {
+    margin-top: 20px;
+  }
+}
