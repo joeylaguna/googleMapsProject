@@ -1,3 +1,4 @@
+![screenshot](./screenshot.png)
 # Google Maps Project
 
 This application uses Google Map and Google Places to search for and display places based on search.
@@ -14,7 +15,7 @@ Be sure to grab a Google Maps API key from https://developers.google.com/maps/
 npm install
 ```
 
-Inside index.html, be sure to add your API key to the following script tag:
+Inside index.html, be sure to add your API key to the following script tag inside index.html and testRunner.html:
 
 ```
 <script src="https://maps.googleapis.com/maps/api/js?key=KEYHERE&libraries=places"></script>
