@@ -7,10 +7,23 @@ var places = [];
 var ratingSorted = false;
 
 function initializeMap() {
+  //Get user location through browser
   map = new google.maps.Map(document.getElementById('map'), {
       center: pyrmont,
       zoom: 12
   });
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      let pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      }
+      //infoWindow.setPosition(pos);
+      infoWindow.open(map);
+      map.setCenter(pos);
+      console.log(map.center);
+    });
+  }
   service = new google.maps.places.PlacesService(map);
 }
 
@@ -80,6 +93,12 @@ const mergeSort = (arr) => {
   return merge(mergeSort(left), mergeSort(right));
 }
 
+const toggleRatingIcon = () => {
+
+  let icon = document.querySelector('.rating');
+  ratingSorted ? icon.innerHTML = 'arrow_drop_down' : icon.innerHTML = 'arrow_drop_up';
+}
+
 const setMapOnAll = (map) => {
   for (let i = 0; i < markers.length; i++) {
     markers[i].setMap(null);
@@ -138,12 +157,6 @@ const buildList = (place) => {
   table.appendChild(listing);
 }
 
-const buildUIList = () => {
-  let ul = document.createElement('ul');
-  ul.setAttribute('class', 'collection');
-  document.querySelector('.searchResults').appendChild(ul);
-}
-
 function callback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     document.querySelector('.loader').classList.add('none');
@@ -152,11 +165,13 @@ function callback(results, status) {
       var place = results[i];
       createMarker(place);
       
-      buildList(place);
+      //buildList(place);
     }
+    sortByRating(places);
   }
   document.querySelector('.loader').classList.add('none');
   document.querySelector('.searchResults').classList.remove('none');
+  
 }
 
 const handleSearch = (searchField, searchForm) => {
@@ -164,7 +179,7 @@ const handleSearch = (searchField, searchForm) => {
   clearTable();
   let query = searchField.value;
   let queryObj = {};
-  queryObj['location'] = pyrmont;
+  queryObj['location'] = map.center;
   queryObj['radius'] = '500',
   queryObj['query'] = query;
   service.textSearch(queryObj, callback);
@@ -181,6 +196,8 @@ const sortByRating = () => {
     buildList(places[i]);
   }
   ratingSorted = !ratingSorted;
+  console.log(document.querySelector('.rating'));
+  toggleRatingIcon();
 }
 
 
