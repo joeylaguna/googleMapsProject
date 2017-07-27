@@ -1,5 +1,6 @@
 body {
   background-color: #fcfcfc;
+  font-family: 'Source Serif Pro', serif;
 }
 
 .mapContainer {
@@ -20,6 +21,17 @@ body {
   background-color: #f2f2f2;
 }
 
+.infoPanel {
+  background-color: #c3e3e6;
+  color: #616e75;
+  position: relative;
+  overflow: hidden;
+}
+
+.infoPanel h3 {
+  font-size: 35px;
+}
+
 .none {
   display: none;
 }
@@ -35,4 +47,55 @@ body {
 
 .card-panel {
   margin-top: 0;
+}
+
+.info {
+  z-index: 27;
+  position: relative;
+}
+
+/*   Cloud     */
+
+.firstCloud {
+  top: 40%;
+}
+
+.secondCloud{
+  top: 95%;
+  left: 35%;
+}
+
+.thirdCloud {
+  top: 35%;
+  left: 85%;
+}
+
+.cloud {
+    background-color: white;
+    min-height: 50px;
+    min-width: 200px;
+    border-radius: 100px;
+    z-index: 1;
+    position: absolute;
+}
+
+.cloud:before {
+  content: '';
+  background-color: white;
+  position: absolute;
+  border-radius: 100px;
+  height: 89px;
+  width: 90px;
+  margin-left: 35px;
+  margin-top: -41px;
+} 
+.cloud:after {
+  background-color: white;
+  content: '';
+  border-radius: 100px;
+  height: 70px;
+  width: 67px;
+  position: absolute;
+  margin-left: 100px;
+  margin-top: -23px;
 }

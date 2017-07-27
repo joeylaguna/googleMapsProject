@@ -50,10 +50,18 @@ const addMarker = (place) => {
   places.push(place);
 }
 
-const toggleRatingIcon = () => {
+const toggleRatingIcon = (type) => {
 
-  let icon = document.querySelector('.rating');
-  ratingSorted ? icon.innerHTML = 'arrow_drop_down' : icon.innerHTML = 'arrow_drop_up';
+  if (type === 'rating') {
+    let icon = document.querySelector('.rating');
+    ratingSorted ? icon.innerHTML = 'arrow_drop_down' : icon.innerHTML = 'arrow_drop_up';
+  }
+
+  if (type === 'name') {
+    let icon = document.querySelector('.name');
+    ratingSorted ? icon.innerHTML = 'arrow_drop_down' : icon.innerHTML = 'arrow_drop_up';
+  }
+
 }
 
 const setMapOnAll = (map) => {
@@ -160,7 +168,7 @@ const sortByRating = () => {
   document.querySelector('.searchResults').classList.remove('none');
   ratingSorted = !ratingSorted;
   console.log(document.querySelector('.rating'));
-  toggleRatingIcon();
+  toggleRatingIcon('rating');
 }
 
 const sortByName = () => {
@@ -173,7 +181,7 @@ const sortByName = () => {
   document.querySelector('.searchResults').classList.remove('none');
   ratingSorted = !ratingSorted;
   console.log(document.querySelector('.rating'));
-  toggleRatingIcon();
+  toggleRatingIcon('name');
 }
 
 window.onload = () => {
