@@ -29,9 +29,9 @@ open index.html
 
 * [js/places.js](https://github.com/joeylaguna/googleMapsProject/blob/master/js/places.js) - Main JS file.  Contains functions that build the search result list and DOM manipulation.
 
-* [js/googleMapUtils.js] (https://github.com/joeylaguna/googleMapsProject/blob/master/js/googleMapUtils.js) - Google Maps/Places Utility functions files.  Contains all the functions needed to build the map and handle places searches.
+* [js/googleMapUtils.js](https://github.com/joeylaguna/googleMapsProject/blob/master/js/googleMapUtils.js) - Google Maps/Places Utility functions files.  Contains all the functions needed to build the map and handle places searches.
 
-* [js/sorting.js] (https://github.com/joeylaguna/googleMapsProject/blob/master/js/sorting.js) - Sorting file.  Contains functions that sorts search results by either rating or name.  By default, search results will display in descending order by rating.
+* [js/sorting.js](https://github.com/joeylaguna/googleMapsProject/blob/master/js/sorting.js) - Sorting file.  Contains functions that sorts search results by either rating or name.  By default, search results will display in descending order by rating.
 
 ## Built With
 
