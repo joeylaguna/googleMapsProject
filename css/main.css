@@ -54,6 +54,10 @@ body {
   position: relative;
 }
 
+.nameHead {
+  min-width: 70px;
+}
+
 /*   Cloud     */
 
 .firstCloud {
