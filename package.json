@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node tests/spec.js"
+    "test": "mocha tests/test.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,8 @@
   "homepage": "https://github.com/joeylaguna/googleMapsProject#readme",
   "dependencies": {
     "chai": "^4.1.0",
-    "mocha": "^3.4.2"
+    "mocha": "^3.4.2",
+    "require": "^2.4.20"
   },
   "devDependencies": {
     "mocha-webpack": "^1.0.0-rc.1"
