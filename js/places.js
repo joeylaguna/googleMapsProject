@@ -20,7 +20,6 @@ function initializeMap() {
         lng: position.coords.longitude
       }
       map.setCenter(pos);
-      console.log(map.center);
     });
   }
   service = new google.maps.places.PlacesService(map);
@@ -128,12 +127,9 @@ const buildList = (place) => {
 function callback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     document.querySelector('.loader').classList.add('none');
-    console.log('here');
     for (var i = 0; i < results.length; i++) {
       var place = results[i];
       createMarker(place);
-      
-      //buildList(place);
     }
     sortByRating(places);
   }
@@ -167,7 +163,6 @@ const sortByRating = () => {
   document.querySelector('.tableHead').classList.remove('none');
   document.querySelector('.searchResults').classList.remove('none');
   ratingSorted = !ratingSorted;
-  console.log(document.querySelector('.rating'));
   toggleRatingIcon('rating');
 }
 
@@ -180,7 +175,7 @@ const sortByName = () => {
   document.querySelector('.tableHead').classList.remove('none');
   document.querySelector('.searchResults').classList.remove('none');
   ratingSorted = !ratingSorted;
-  console.log(document.querySelector('.rating'));
+
   toggleRatingIcon('name');
 }
 
