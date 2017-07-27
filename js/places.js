@@ -5,6 +5,7 @@ var infoWindow = new google.maps.InfoWindow();
 var markers = [];
 var places = [];
 var ratingSorted = false;
+var nameSorted = false;
 
 function initializeMap() {
   //Get user location through browser
@@ -18,8 +19,6 @@ function initializeMap() {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       }
-      //infoWindow.setPosition(pos);
-      //infoWindow.open(map);
       map.setCenter(pos);
       console.log(map.center);
     });
@@ -49,48 +48,6 @@ const addMarker = (place) => {
   });
   markers.push(marker);
   places.push(place);
-}
-
-const merge = (left, right) => {
-  let results = [];
-
-  while (left.length && right.length) {
-    if (ratingSorted) {
-      if (left[0].rating < right[0].rating) {
-        results.push(left.shift());
-      } else {
-        results.push(right.shift());
-      }  
-    } else {
-      if (left[0].rating > right[0].rating) {
-        results.push(left.shift());
-      } else {
-        results.push(right.shift());
-      }
-    }
-    
-  }
-
-  while (left.length) {
-    results.push(left.shift());
-  }
-
-  while (right.length) {
-    results.push(right.shift());
-  }
-  return results;
-}
-
-const mergeSort = (arr) => {
-  if (arr.length < 2) {
-    return arr;
-  }
-
-  let middle = parseInt(arr.length / 2);
-  let left = arr.slice(0, middle);
-  let right = arr.slice(middle, arr.length);
-
-  return merge(mergeSort(left), mergeSort(right));
 }
 
 const toggleRatingIcon = () => {
@@ -194,8 +151,7 @@ const handleSearch = (searchField, searchForm) => {
 }
 
 const sortByRating = () => {
-  places = mergeSort(places);
-  console.log(places);
+  places = mergeSort(places, 'rating', ratingSorted);
   clearTable();
   for (let i = 0; i < places.length; i++) {
     buildList(places[i]);
@@ -207,6 +163,18 @@ const sortByRating = () => {
   toggleRatingIcon();
 }
 
+const sortByName = () => {
+  places = mergeSort(places, 'name', ratingSorted);
+  clearTable();
+  for (let i = 0; i < places.length; i++) {
+    buildList(places[i]);
+  }
+  document.querySelector('.tableHead').classList.remove('none');
+  document.querySelector('.searchResults').classList.remove('none');
+  ratingSorted = !ratingSorted;
+  console.log(document.querySelector('.rating'));
+  toggleRatingIcon();
+}
 
 window.onload = () => {
   initializeMap();
@@ -222,5 +190,6 @@ window.onload = () => {
 
   //Add sorting to table headers
   let headers = document.querySelectorAll('.sort');
+  headers[0].addEventListener('click', sortByName);
   headers[2].addEventListener('click', sortByRating);
 }
