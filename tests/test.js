@@ -1,12 +1,11 @@
-var chai = require('chai');
+var assert = chai.assert;
 var expect = chai.expect;
-
-it('returns true', (done) => {
-    expect(1).to.equal(1);
-    done();
+describe('Google Maps', function() {
+  describe('Google Maps Setup', function() {
+    it('should create an instance of Google Map', function() {
+      let newMap = new google.maps.LatLng(38.5718873,-121.4819011);
+      expect(newMap).to.be.an('object');
+    });
+  });
 });
 
-it('returns false', (done) => {
-  expect(1).to.not.equal(2);
-  done();
-})
