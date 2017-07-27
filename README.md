@@ -6,7 +6,7 @@ This application uses Google Map and Google Places to search for and display pla
 
 ### Prerequisities
 
-Be sure to grab a Google Maps API from https://developers.google.com/maps/
+Be sure to grab a Google Maps API key from https://developers.google.com/maps/
 
 ### Installing
 
