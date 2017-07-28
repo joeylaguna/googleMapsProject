@@ -26,6 +26,12 @@ Then:
 open index.html
 ```
 
+## Running Tests
+
+```
+npm run test
+```
+
 ## Layout
 
 * [js/places.js](https://github.com/joeylaguna/googleMapsProject/blob/master/js/places.js) - Main JS file.  Contains functions that build the search result list and DOM manipulation.

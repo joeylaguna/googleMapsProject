@@ -46,7 +46,6 @@ const merge = (left, right, type, sorted) => {
 }
 
 const mergeSort = (arr, type, sorted) => {
-  console.log('inside file');
   if (arr.length < 2) {
     return arr;
   }
